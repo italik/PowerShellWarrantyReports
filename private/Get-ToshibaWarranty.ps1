@@ -16,6 +16,7 @@ function get-ToshibaWarranty
             'Client'                = $Client
         }
     }
+    }
     else {
         $WarObj = [PSCustomObject]@{
             'Serial'                = $SourceDevice
