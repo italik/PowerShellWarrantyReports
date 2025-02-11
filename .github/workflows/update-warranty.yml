@@ -30,6 +30,7 @@ jobs:
           # Load the dependent function from the private folder.
           # Since the working directory is public, the private folder is one level up.
           . ..\private\Get-WarrantyDRMM.ps1
+          . ..\private\Get-DellWarranty.ps1
 
           # Now call the functions.
           Set-WarrantyAPIKeys -DellClientID $env:DELL_CLIENT_ID -DellClientSecret $env:DELL_CLIENT_SECRET
