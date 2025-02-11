@@ -1,5 +1,6 @@
 name: Update Warranty Info Daily
 
+
 on:
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight UTC
@@ -8,6 +9,7 @@ on:
 jobs:
   update-warranty:
     runs-on: windows-latest
+    continue-on-error: true
 
     steps:
       - name: Checkout Repository
