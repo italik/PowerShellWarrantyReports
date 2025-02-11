@@ -36,6 +36,9 @@ jobs:
           . ..\private\Get-DellWarranty.ps1
           . ..\private\Get-ToshibaWarranty.ps1
           . ..\private\Get-MSWarranty.ps1
+          . ..\private\Get-LenovoWarranty.ps1
+          . ..\private\Get-AppleWarranty.ps1
+          . ..\private\Get-HPWarranty.ps1
 
           # Now call the functions.
           Set-WarrantyAPIKeys -DellClientID $env:DELL_CLIENT_ID -DellClientSecret $env:DELL_CLIENT_SECRET
