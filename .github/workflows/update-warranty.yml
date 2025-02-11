@@ -48,4 +48,5 @@ jobs:
             -ExcludeMS `
             -ExcludeHP `
             -ExcludeLenovo `
-            -ExcludeApple
+            -ExcludeApple `
+            -ExcludeToshiba
