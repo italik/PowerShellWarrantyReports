@@ -1,5 +1,6 @@
 function get-ToshibaWarranty
 ([Parameter(Mandatory = $true)]$SourceDevice, [Parameter(Mandatory = $false)] [string]$ModelNumber, [Parameter(Mandatory = $false)] [string]$client) {
+    if ($script:ExcludeToshiba -ne $True) {
     $today = Get-Date -Format yyyy-MM-dd
     $APIURL = "http://support.toshiba.com/support/warrantyResults?sno=" + $SourceDevice + "&mpn=" + $modelnumber
     $Req = Invoke-RestMethod -Uri $APIURL -Method get
@@ -27,5 +28,5 @@ function get-ToshibaWarranty
     }
     return $WarObj
  
- 
+ }
 }
