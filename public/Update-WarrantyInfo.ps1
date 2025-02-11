@@ -104,6 +104,8 @@ function update-warrantyinfo {
         [switch]$ExcludeLenovo,
         [Parameter(Mandatory = $false)]
         [switch]$ExcludeMS,
+	[Parameter(Mandatory = $false)]
+        [switch]$ExcludeToshiba,
         [Parameter(Mandatory = $false)]
         [String]$ReportsLocation = "C:\Temp\"
     )
@@ -112,6 +114,7 @@ function update-warrantyinfo {
     $script:ExcludeHP = $ExcludeHP
     $script:ExcludeLenovo = $ExcludeLenovo
     $script:ExcludeMS = $ExcludeMS
+    $script:ExcludeToshiba = $ExcludeToshiba
     $script:LogPath = $LogFile
     switch ($PSBoundParameters.Keys) {
         Autotask { $WarrantyStatus = Get-WarrantyAutotask -AutotaskCredentials $AutotaskCredentials -AutotaskAPIKey $AutotaskAPIKey -SyncWithSource $SyncWithSource -MissingOnly $Missingonly -OverwriteWarranty $OverwriteWarranty | Sort-Object -Property Client }
