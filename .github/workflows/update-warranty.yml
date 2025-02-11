@@ -9,13 +9,14 @@ on:
 jobs:
   update-warranty:
     runs-on: windows-latest
-    continue-on-error: true
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Run Warranty Update
+        id: Step 1
+        continue-on-error: true
         working-directory: public  # Set working directory to public
         shell: pwsh
         env:
