@@ -25,6 +25,7 @@ jobs:
           # Load the function definitions from the public folder.
           . .\Set-WarrantyAPIKeys.ps1
           . .\Update-WarrantyInfo.ps1
+          . .\Get-WarrantyInfo.ps1
 
           # Load the dependent function from the private folder.
           # Since the working directory is public, the private folder is one level up.
