@@ -1,0 +1,41 @@
+name: Update Warranty Info Daily
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs every day at midnight UTC
+  workflow_dispatch:      # Allows you to manually trigger the workflow if needed
+
+jobs:
+  update-warranty:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run Warranty Update
+        shell: pwsh
+        env:
+          DELL_CLIENT_ID: ${{ secrets.DELL_CLIENT_ID }}
+          DELL_CLIENT_SECRET: ${{ secrets.DELL_CLIENT_SECRET }}
+          DATTO_API_KEY: ${{ secrets.DATTO_API_KEY }}
+          DATTO_API_SECRET: ${{ secrets.DATTO_API_SECRET }}
+        run: |
+          # If your functions are part of a module or script, import them first.
+          # For example, if you have a module called WarrantyModule.psm1 in your repository:
+          # Import-Module "$PSScriptRoot\WarrantyModule.psm1" -Force
+
+          # Set the Dell API keys using the secrets
+          Set-WarrantyAPIKeys -DellClientID $env:DELL_CLIENT_ID -DellClientSecret $env:DELL_CLIENT_SECRET
+
+          # Update the warranty information for DattoRMM
+          update-warrantyinfo -DattoRMM `
+            -DattoAPIURL "https://pinotage-api.centrastage.net" `
+            -DattoAPIKey $env:DATTO_API_KEY `
+            -DattoAPISecret $env:DATTO_API_SECRET `
+            -SyncWithSource `
+            -OverwriteWarranty `
+            -ExcludeMS `
+            -ExcludeHP `
+            -ExcludeLenovo `
+            -ExcludeApple
