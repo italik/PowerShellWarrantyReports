@@ -3,7 +3,7 @@ name: Update Warranty Info Daily
 on:
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight UTC
-  workflow_dispatch:      # Allows you to manually trigger the workflow if needed
+  workflow_dispatch:      # Allows you to manually trigger the workflow
 
 jobs:
   update-warranty:
@@ -14,6 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Warranty Update
+        working-directory: public  # Change directory to 'public'
         shell: pwsh
         env:
           DELL_CLIENT_ID: ${{ secrets.DELL_CLIENT_ID }}
@@ -21,11 +22,12 @@ jobs:
           DATTO_API_KEY: ${{ secrets.DATTO_API_KEY }}
           DATTO_API_SECRET: ${{ secrets.DATTO_API_SECRET }}
         run: |
-          # If your functions are part of a module or script, import them first.
-          # For example, if you have a module called WarrantyModule.psm1 in your repository:
-          # Import-Module "$PSScriptRoot\WarrantyModule.psm1" -Force
+          # Now that we're in the 'public' folder, the functions should be available.
+          # If you need to import a module/script that defines these functions, do it here.
+          # For example:
+          # . .\WarrantyModule.ps1
 
-          # Set the Dell API keys using the secrets
+          # Set the Dell API keys
           Set-WarrantyAPIKeys -DellClientID $env:DELL_CLIENT_ID -DellClientSecret $env:DELL_CLIENT_SECRET
 
           # Update the warranty information for DattoRMM
