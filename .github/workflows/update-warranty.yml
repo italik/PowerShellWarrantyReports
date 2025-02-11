@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Warranty Update
-        working-directory: public  # Change into the 'public' folder
+        working-directory: public  # Set working directory to public
         shell: pwsh
         env:
           DELL_CLIENT_ID: ${{ secrets.DELL_CLIENT_ID }}
@@ -22,11 +22,15 @@ jobs:
           DATTO_API_KEY: ${{ secrets.DATTO_API_KEY }}
           DATTO_API_SECRET: ${{ secrets.DATTO_API_SECRET }}
         run: |
-          # Dot-source the files to load the functions into the current session.
+          # Load the function definitions from the public folder.
           . .\Set-WarrantyAPIKeys.ps1
           . .\Update-WarrantyInfo.ps1
 
-          # Now call the functions using the loaded definitions.
+          # Load the dependent function from the private folder.
+          # Since the working directory is public, the private folder is one level up.
+          . ..\private\Get-WarrantyDRMM.ps1
+
+          # Now call the functions.
           Set-WarrantyAPIKeys -DellClientID $env:DELL_CLIENT_ID -DellClientSecret $env:DELL_CLIENT_SECRET
 
           update-warrantyinfo -DattoRMM `
